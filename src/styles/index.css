@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    @supports not (scroll-behavior: smooth) {
+      scroll-behavior: auto;
+    }
+    height: 100%;
+  }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 4rem; /* Space for footer */
+    overflow-x: hidden;
+    font-size: 16px; /* Ensure minimum font size for readability */
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Playfair Display', serif;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Project Card Hover Animations */
+@layer components {
+  .project-card {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    transition: opacity 0.25s ease-out;
+    will-change: transform;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (hover: hover) {
+    .project-card:hover {
+      transform: scale(1.03) translateZ(0);
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  @media (hover: none) {
+    .project-card:active {
+      transform: scale(1.02) translateZ(0);
+    }
+  }
+
+  /* Navigation Arrows */
+  .nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 1;
+    transition: all 0.2s ease-out;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    z-index: 10;
+  }
+
+  .nav-arrow-prev {
+    left: -20px;
+  }
+
+  .nav-arrow-next {
+    right: -20px;
+  }
+
+  @media (hover: hover) {
+    .nav-arrow:hover {
+      opacity: 0.8;
+      background: rgba(255, 255, 255, 1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav-arrow {
+      display: none;
+    }
+  }
+  
+  /* Mobile-specific styles */
+  @media (max-width: 480px) {
+    .mobile-touch-target {
+      min-height: 44px;
+      min-width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .mobile-spacing {
+      padding: 8px;
+    }
+    
+    .mobile-text-base {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    
+    .mobile-text-lg {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+    
+    .mobile-text-xl {
+      font-size: 20px;
+      line-height: 1.4;
+    }
+    
+    .mobile-text-2xl {
+      font-size: 24px;
+      line-height: 1.3;
+    }
+  }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Pulse overlay animation: scales and fades the element */
+@keyframes pulseOverlay {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Slow pulse animation class */
+.animate-pulse-slow {
+  animation: pulseOverlay 4s ease-in-out infinite;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.horizontal-wrapper {
+  display: block;
+  width: 100%;
+  height: auto; /* Let content determine height */
+}
+
+.horizontal-container {
+  display: flex;
+  flex-direction: row;
+  /* Add any existing horizontal layout styles */
+}
+
+.stage-section {
+  display: flex;
+  flex-direction: row; /* Ensures horizontal alignment */
+  gap: 20px; /* Adjust spacing as needed */
+  overflow-x: auto; /* Or hidden, depending on your layout */
+  white-space: nowrap; /* Prevents wrapping */
+}
+
+@media (max-width: 640px) {
+  .testimonial-card {
+    width: 90vw;
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+
+  .testimonial-quote {
+    font-size: 1rem;
+  }
+
+  .testimonial-name {
+    font-size: 1rem;
+  }
+
+  .testimonial-position {
+    font-size: 0.875rem;
+  }
+}
+
+/* Mobile optimization styles */
+@media (max-width: 480px) {
+  /* Improved tap targets */
+  button, 
+  a, 
+  [role="button"],
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 8px 16px;
+  }
+  
+  /* Improved spacing */
+  .section-spacing {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  /* Improved text readability */
+  p, li, input, textarea, select {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  /* Stacked grid layouts for mobile */
+  .mobile-stack {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Reduced margins and paddings */
+  .mobile-compact {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+  }
+  
+  /* Full-width containers on mobile */
+  .mobile-full-width {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@keyframes custom-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+.custom-pulse {
+  animation: custom-pulse 2s infinite;
+}
